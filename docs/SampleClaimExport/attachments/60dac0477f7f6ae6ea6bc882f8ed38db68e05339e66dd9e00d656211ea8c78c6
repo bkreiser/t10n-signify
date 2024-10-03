@@ -1,0 +1,1 @@
+{"message":"Attachments server returned error status '403' on url 'http://localhost:9090/api/secure/request/attachment/contents/60dac0477f7f6ae6ea6bc882f8ed38db68e05339e66dd9e00d656211ea8c78c6' with message: Requested attachment is not accessible to the provided public key"}

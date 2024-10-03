@@ -1,0 +1,128 @@
+{
+  "program": {
+    "id": "SHA-256D:066C943CE87DD931AA2663C27D0CB7D941C929A52A1A04D2FAF24E02AA60F375:0",
+    "name": "Food Water Wellness Foundation",
+    "description": "All food water wellness foundation programs",
+    "owner": "CN=Owner, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "hostCountry": {
+      "name": "Canada"
+    },
+    "scale": "Small",
+    "attachments": [
+      {
+        "name": "Information",
+        "hash": "bfe9bc33b3d0e30dd260d16235146a2e3a70095de9539a0c3ea27aefd3d08f63",
+        "fileName": "FWWF.htm",
+        "mimeType": "text/html",
+        "size": 88857
+      }
+    ]
+  },
+  "project": {
+    "id": "SHA-256D:318CEABCB391C355C877530148D549AA0B06CF4D0E4BDC2EBF042E9B7108E5D9:0",
+    "status": "Active",
+    "owner": "CN=Owner, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "registry": "CN=Registry, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "observers": [],
+    "name": "Kreiser Land Project",
+    "description": "This is the Kreiser Land Project for location Sec 1, Township 31, Range 1  West of the 5th Meridian",
+    "location": {
+      "location": "SE-SEC1-TWP31-RGE1-W5"
+    },
+    "target": {
+      "benefit": "Grasslands"
+    },
+    "developers": [
+      {
+        "company": "Acme Development"
+      }
+    ],
+    "sponsors": [
+      {
+        "company": "Weston Foundation"
+      }
+    ],
+    "attachments": [
+      {
+        "name": "Project Information",
+        "hash": "d7e2af1b2fdb7a09adee8a8d7f2d00dd257ef03cc282d4c0938d9c94ee0992d3",
+        "fileName": "AR_Map.pdf",
+        "mimeType": "application/pdf",
+        "size": 245195
+      }
+    ]
+  },
+  "contract": {
+    "id": "SHA-256D:9911BDFD811110B39A80BAA666409BF90590DE12DCE308E137B812330B0DC8BA:0",
+    "name": "Verification Contract for Kreiser Land and Simple Verification Company",
+    "description": "This is a contract between Simple Verification Company and Kreiser Land",
+    "status": "Accepted",
+    "programOwner": "CN=Owner, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "verifier": "CN=Verifier, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "registry": "CN=Registry, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "verificationStandard": {
+      "standard": "Standard Grasslands Verification",
+      "version": "1.0",
+      "link": {
+        "name": "Verification Standard Document",
+        "hash": "60dac0477f7f6ae6ea6bc882f8ed38db68e05339e66dd9e00d656211ea8c78c6",
+        "fileName": "DRAFT_Protocol_v0.2.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 155194
+      }
+    },
+    "mrvRequirements": {
+      "requirements": "No MRV Requirements"
+    },
+    "agreementDate": "2024-10-01T06:00:00Z",
+    "effectiveDate": "2024-10-01T06:00:00Z",
+    "endDate": "2024-12-31T07:00:00Z",
+    "estimatedAnnualCredits": "100000",
+    "termsAndConditions": {
+      "terms": "https://guild1.co/termsandconditions.pdf"
+    },
+    "attachments": [
+      {
+        "name": "Verification Contract",
+        "hash": "d2d10668f99f0f6c5fd368dd4b671c666b13c986cc0625077df1019dbbf3c680",
+        "fileName": "Simple Contract Between Simple Verifications and Kreiser Land Company.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 13208
+      }
+    ]
+  },
+  "claim": {
+    "id": "SHA-256D:120CBED5EF6E980553BB197560558A1086E26F3DB941C6B4D11799C6E5190E48:0",
+    "status": "Tokenized",
+    "projectOwner": "CN=Owner, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "verifier": "CN=Verifier, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "registry": "CN=Registry, OU=Development, O=GuildOne, L=Calgary, C=CA",
+    "sources": [
+      {
+        "id": "ff6c1cef-bd29-49fd-93d3-cc0fe6bf3bf6",
+        "type": "Satellite",
+        "externalSourceId": "SAT-1"
+      }
+    ],
+    "cobenefits": [
+      {
+        "cobenefit": "Kleven Industries"
+      }
+    ],
+    "verificationReport": {
+      "report": "The Completed Verification Report",
+      "attachment": {
+        "name": "VerificationReport",
+        "hash": "60dac0477f7f6ae6ea6bc882f8ed38db68e05339e66dd9e00d656211ea8c78c6",
+        "fileName": "DRAFT_Protocol_v0.2.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "size": 155194
+      }
+    },
+    "amount": "20000",
+    "claimHash": "9E7D98B5314C3588B4D535AA3FA901040AE66DCA296B5BC750A6CB2FE356116E",
+    "startDate": "2024-10-02T06:00:00Z",
+    "endDate": "2024-12-30T07:00:00Z",
+    "discarded": false
+  }
+}
