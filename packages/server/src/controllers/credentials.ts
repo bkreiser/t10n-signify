@@ -5,7 +5,7 @@ import { config } from "../config";
 
 export async function getCredential(req: Request, res: Response) {
   const said = req.params.said;
-  const client: SignifyClient = req.app.get("client");
+  const client: SignifyClient = req.app.get("issuerClient");
 
   try {
     const data = await client.credentials().get(said);

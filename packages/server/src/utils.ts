@@ -78,6 +78,7 @@ async function getBran(path: string): Promise<string> {
 
 export async function getOrCreateClient(name: String): Promise<SignifyClient> {
   await ready();
+
   const client = new SignifyClient(config.keriaEndpoint, await getBran(`./data/${name}-secret`), Tier.low, config.keriaBootEndpoint);
   await client.boot();
   await client.connect();

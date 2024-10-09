@@ -1,0 +1,52 @@
+{
+  "$id": "ECFaQk-0xmGcYV5TcFI9LEWFopkiVfwdLjprPPBvjJ-I",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "v10n Claim Export",
+  "description":
+    "v10n Claim Export",
+  "type": "object",
+  "credentialType": "ClaimExport",
+  "version": "0.0.1",
+  "properties": {
+    "v": { "description": "Version", "type": "string" },
+    "d": { "description": "Credential SAID", "type": "string" },
+    "u": { "description": "One time use nonce", "type": "string" },
+    "i": { "description": "Issuee AID", "type": "string" },
+    "ri": { "description": "Credential status registry", "type": "string" },
+    "s": { "description": "Schema SAID", "type": "string" },
+    "a": {
+      "description": "Claim Export",
+      "type": "object",
+      "properties": {
+          "program": {
+            "description": "Ecological Program",
+            "type": "object",
+            "properties": {
+                "id": { "description": "Identifier", "type": "string" },
+                "name": { "description": "Food Water Wellness Foundation", "type": "string" },
+                "description": { "description": "Program Description", "type": "string" },
+                "owner": { "description": "The Owner of the program", "type": "string" },
+                "hostCountry": { "description": "The country", "type": "string" },
+                "scale": { "description": "The scale", "type": "string" },
+                "attachments": {
+                    "description": "Program Attachments",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": { "description": "File name", "type": "string" },
+                            "hash": { "description": "Hash", "type": "string" },
+                            "fileName": { "description": "File Name", "type": "string" },
+                            "mimeType": { "description": "Mime Type", "type": "string" },
+                            "size": { "description": "The Length", "type": "number" }
+                        }
+                    }
+                }
+            }
+         }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["i", "ri", "s", "d"]
+}
