@@ -11,5 +11,7 @@ function getRequired(name: string): string {
 export const config = {
   keriaEndpoint: getRequired("KERIA_ENDPOINT"),
   keriaBootEndpoint: getRequired("KERIA_BOOT_ENDPOINT"),
-  schemaSaid: "EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao"
+  schemaSaid: "EGQVFrfFAmYfAtVoWonLkNkhD-vYk_e3cBHGneg0GCu2",
+  t10nUser: "admin",
+  t10nPass: "admin"
 }

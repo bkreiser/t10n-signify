@@ -1,53 +1,37 @@
 import express, { Request, Response, NextFunction } from "express";
-import {SignifyClient, Tier, randomPasscode, ready, Operation, HabState} from "signify-ts";
-import { join, dirname } from "path";
-import { existsSync, mkdirSync } from "fs";
-import { readFile, writeFile } from "fs/promises";
-import { waitAndGetDoneOp } from "./utils";
-import { getCredential, verifyCredential } from "./controllers/credentials";
-import { query } from "./controllers/queries";
+import {
+  SignifyClient,
+  Operation
+} from "signify-ts";
+import { join } from "path";
+import {
+  createAid,
+  debugAid,
+  getOrCreateClient,
+  getOrCreateRegistry,
+  resolveOobi,
+} from "./utils";
+import {createCredential, getCredential} from "./controllers/credentials";
 import { config } from "./config";
 
-async function getBran(path: string): Promise<string> {
-  const dirPath = dirname(path);
-  if (!existsSync(dirPath)) {
-    mkdirSync(dirPath, { recursive: true })
-  }
-  if (!existsSync(path)) {
-    await writeFile(path, "");
-  }
+export async function loadSchemas(req: Request, res: Response) {
+  const issuerClient: SignifyClient = req.app.get("issuerClient")
+  const holderClient: SignifyClient = req.app.get("holderClient")
+  const vLEIServerHostUrl = `http://localhost:3000/oobi`;
+  const QVI_SCHEMA_SAID = config.schemaSaid
+  const QVI_SCHEMA_URL = `${vLEIServerHostUrl}/${QVI_SCHEMA_SAID}`;
 
-  const contents = await readFile(path, "utf8");
-  if (!contents) {
-    const bran = randomPasscode();
-    await writeFile(path, bran);
-    return bran;
-  }
-  return contents;
+  console.info(QVI_SCHEMA_URL)
+
+  await resolveOobi(holderClient, QVI_SCHEMA_URL)
+  await resolveOobi(issuerClient, QVI_SCHEMA_URL)
 }
 
-async function getClient(): Promise<SignifyClient> {
-  await ready();
-  const client = new SignifyClient(config.keriaEndpoint, await getBran("./data/secret"), Tier.low, config.keriaBootEndpoint);
-  await client.boot();
-  await client.connect();
-  
-  return client;
-}
-
-async function getSingleSigId(client: SignifyClient): Promise<HabState> {
-  if (await client.identifiers().get("issuer") == null) {
-    await waitAndGetDoneOp(client, await (await client.identifiers().create("issuer")).op());
-    await waitAndGetDoneOp(client, await (await client.identifiers().addEndRole("issuer", "agent", client.agent!.pre)).op());
-  }
-
-  return client.identifiers().get("issuer");
-}
-
-async function startServer(): Promise<void> {
+async function startServer(): Promise<[SignifyClient,SignifyClient]> {
   const app = express();
   const router = express.Router();
-  
+
+  app.use(express.json())
   app.use(router);
   app.use("/oobi", express.static(join(__dirname, "schemas"), { setHeaders: (res, path) => {
     res.setHeader("Content-Type", "application/schema+json");
@@ -57,22 +41,36 @@ async function startServer(): Promise<void> {
     res.status(500).json({ error: err.message });
   });
 
+  const issuerClient = await getOrCreateClient("issuer")
+  const holderClient = await getOrCreateClient("holder")
+  const issuer = await createAid(issuerClient, "issuer")
+  const holder = await createAid(holderClient, "holder")
+ // const QVI_SCHEMA_URL = 'https://cred-issuance.stg.cf-idw.global.metadata.dev.cf-deployments.org/oobi/EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao'
+  const TEST_REGISTRY = "t10n-test-registry"
+  const registry = await getOrCreateRegistry(issuerClient, issuer.name, TEST_REGISTRY)
+
   app.listen(3000, async () => {
-    console.info(`Web server started on port 3000, static content (OOBIs) ready... launching Signify client`);
-    const client = await getClient();
-    const issuerState = await getSingleSigId(client);
+    console.info(`Web server started on port 3000, static content (OOBIs) ready... launching Signify client`)
 
-    console.log(issuerState)
-
-    app.set("client", client);
-    app.set("issuer", issuerState)
+    app.set("issuerClient", issuerClient)
+    app.set("holderClient", holderClient)
+    app.set("issuer", issuer)
+    app.set("holder", holder)
+    app.set("registry", registry)
 
     router.get("/credentials/:said", getCredential);
-    router.post("/credentials/verify", verifyCredential);
-    router.post("/query", query);
+    router.post("/credentials", createCredential)
+    router.get("/schemas", loadSchemas)
 
     console.info(`Server ready`);
   });
+
+  console.log("All done")
+
+  return [issuerClient,holderClient]
 }
 
-void startServer();
+void startServer().then(clients=>async () => {
+
+})
+
