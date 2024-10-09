@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import {RegistryResult, Saider, Serder, SignifyClient} from "signify-ts";
 import {Aid, issueCredential, Reg, waitAndGetDoneOp} from "../utils";
 import { config } from "../config";
-import {loadSchemas} from "../index";
 
 export async function getCredential(req: Request, res: Response) {
   const said = req.params.said;
@@ -23,7 +22,6 @@ export async function getCredential(req: Request, res: Response) {
 
 export async function createCredential(req: Request, res: Response) {
   const issuerClient: SignifyClient = req.app.get("issuerClient")
-  const holderClient: SignifyClient = req.app.get("holderClient")
   const registry: Reg = req.app.get("registry")
   const issuer: Aid = req.app.get("issuer")
   const holder: Aid = req.app.get("holder")
