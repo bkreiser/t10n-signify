@@ -93,6 +93,7 @@ export async function resolveOobi(
 ) {
   const op = await client.oobis().resolve(oobi, alias);
   await waitOperation(client, op);
+  return op
 }
 
 async function getOrCreateIdentifier(client: SignifyClient, name: string): Promise<[string,string]> {

@@ -47,8 +47,10 @@ async function startServer() {
     router.get("/credentials/:said", getCredential);
     router.post("/credentials", createCredential)
 
-    await resolveOobi(holderClient, "http://192.168.10.186:3000/oobi/ECFaQk-0xmGcYV5TcFI9LEWFopkiVfwdLjprPPBvjJ-I")
-    await resolveOobi(issuerClient, "http://192.168.10.186:3000/oobi/ECFaQk-0xmGcYV5TcFI9LEWFopkiVfwdLjprPPBvjJ-I")
+    console.log("Before Resolve")
+    await resolveOobi(holderClient, "http://192.168.10.186:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
+    await resolveOobi(issuerClient, "http://192.168.10.186:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
+    console.log("After Resolve")
 
     console.info(`Server ready`);
   });
