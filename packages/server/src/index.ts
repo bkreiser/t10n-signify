@@ -11,7 +11,7 @@ import {
   getOrCreateRegistry,
   resolveOobi,
 } from "./utils";
-import {createCredential, getCredential} from "./controllers/credentials";
+import {createClaim, createCredential, getCredential} from "./controllers/credentials";
 import { config } from "./config";
 
 async function startServer() {
@@ -44,12 +44,13 @@ async function startServer() {
     app.set("holder", holder)
     app.set("registry", registry)
 
-    router.get("/credentials/:said", getCredential);
+    router.get("/credentials/:said", getCredential)
     router.post("/credentials", createCredential)
+    router.post("/claim", createClaim)
 
     console.log("Before Resolve")
-    await resolveOobi(holderClient, "http://192.168.10.186:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
-    await resolveOobi(issuerClient, "http://192.168.10.186:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
+    await resolveOobi(holderClient, "http://192.168.10.227:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
+    await resolveOobi(issuerClient, "http://192.168.10.227:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
     console.log("After Resolve")
 
     console.info(`Server ready`);

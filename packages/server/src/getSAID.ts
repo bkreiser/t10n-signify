@@ -16,7 +16,7 @@ import { config } from "./config";
 import * as fs from "node:fs";
 
 async function getSAID<T = any>() {
-  const v = fs.readFileSync('schemas/s-template', 'utf-8')
+  const v = fs.readFileSync('schemas/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j', 'utf-8')
   const obj = JSON.parse(v)
   const [i,j] = Saider.saidify(obj, MtrDex.Blake3_256, Serials.JSON, "$id")
   console.log(j)
