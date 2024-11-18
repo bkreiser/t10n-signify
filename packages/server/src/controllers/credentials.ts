@@ -44,15 +44,20 @@ export async function createClaim(req: Request, res: Response) {
       schemaId, newData)
 
   const said = cred.acdc.ked.d as string
+  const issSaid = cred.iss.ked.d as string
 
   const credential = await client.credentials().get(said)
 
   const vv = Buffer.from(JSON.stringify({...credential.sad,
     d: "############################################"}))
+  const vv2 = Buffer.from(JSON.stringify({...cred.iss.ked,
+    d: "############################################"}))
 
   const obj = {
     id: said,
-    data: vv.toString("hex")
+    data: vv.toString("hex"),
+    issId: issSaid,
+    issData: vv2.toString("hex")
   }
   res.json(obj)
 }
