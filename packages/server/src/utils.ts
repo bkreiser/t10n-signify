@@ -8,7 +8,7 @@ import {
   SignifyClient,
   Tier
 } from "signify-ts";
-import {dirname} from "path";
+import {dirname, join} from "path";
 import {existsSync, mkdirSync} from "fs";
 import {readFile, writeFile} from "fs/promises";
 import {config} from "./config";
@@ -79,7 +79,7 @@ async function getBran(path: string): Promise<string> {
 export async function getOrCreateClient(name: String): Promise<SignifyClient> {
   await ready();
 
-  const client = new SignifyClient(config.keriaEndpoint, await getBran(`./data/${name}-secret`), Tier.low, config.keriaBootEndpoint);
+  const client = new SignifyClient(config.keriaEndpoint, await getBran(join(config.dataDir, `/data/${name}-secret`)), Tier.low, config.keriaBootEndpoint);
   await client.boot();
   await client.connect();
 

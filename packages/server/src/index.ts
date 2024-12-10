@@ -20,7 +20,7 @@ async function startServer() {
 
   app.use(express.json())
   app.use(router);
-  app.use("/oobi", express.static(join(__dirname, "schemas"), { setHeaders: (res, path) => {
+  app.use("/oobi", express.static(join(config.dataDir, "/schemas"), { setHeaders: (res, path) => {
     res.setHeader("Content-Type", "application/schema+json");
   }}));
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -49,10 +49,29 @@ async function startServer() {
     router.post("/claim", createClaim)
 
     console.log("Before Resolve")
-    await resolveOobi(holderClient, "http://192.168.10.227:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
-    await resolveOobi(issuerClient, "http://192.168.10.227:3000/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j")
-    console.log("After Resolve")
 
+    console.log(`Server Address is ${config.serverAddress}`)
+    console.log(`Current Directory is ${__dirname}`)
+    console.log(`Schema Directory is ${join(config.dataDir, "/schemas")}`)
+    console.log(`Holder URL is ${holderClient.url}`)
+    console.log(`Issuer URL is ${issuerClient.url}`)
+    console.log(`Holder Boot URL is ${holderClient.bootUrl}`)
+    console.log(`Issuer Boot URL is ${issuerClient.bootUrl}`)
+
+    const issuerOobis = await issuerClient.oobis().get('issuer', 'agent');
+    const holderOobis = await holderClient.oobis().get('holder', 'agent');
+
+    console.log("Issuer Oobis: "+JSON.stringify(issuerOobis, null, 2))
+    console.log("Holder Oobis: "+JSON.stringify(holderOobis, null, 2))
+
+    const schemaOOBI = `${config.serverAddress}/oobi/EA3NRCtGF0czMPeiG5-CWbgCnmcpBDpPo2mYlxoGkk0j`
+
+    console.log(`SchemaOOBI is ${schemaOOBI}`)
+
+    await resolveOobi(holderClient, schemaOOBI)
+    await resolveOobi(issuerClient, schemaOOBI)
+
+    console.log("After Resolve")
     console.info(`Server ready`);
   });
 }

@@ -11,4 +11,6 @@ function getRequired(name: string): string {
 export const config = {
   keriaEndpoint: getRequired("KERIA_ENDPOINT"),
   keriaBootEndpoint: getRequired("KERIA_BOOT_ENDPOINT"),
+  serverAddress: getRequired("SERVER_ADDRESS"),
+  dataDir: getRequired("DATA_DIR"),
 }
